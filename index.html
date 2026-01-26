@@ -142,7 +142,7 @@
                         </div>
                     </div>
 
-                    <div class="p-5 md:p-6 pt-6 space-y-6">
+                    <div class="p-5 md:p-6 pt-6 space-y-8">
                         
                         <div>
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
@@ -190,29 +190,38 @@
                             <div class="text-[10px] text-gray-500 mt-2 pl-1">Если авто-подключение не сработало, скопируйте ключ и вставьте в приложение вручную.</div>
                         </div>
 
-                        <div class="bg-black/20 rounded-xl p-4 border border-white/5 space-y-3 text-sm text-gray-300">
-                            <div class="flex gap-3 items-start">
-                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[10px] font-bold text-gray-400 mt-0.5">3</span>
-                                <p class="leading-snug text-xs md:text-sm"><span class="text-white font-bold">Включите VPN.</span> С этим ключом работает <strong class="text-yellow-400">только Telegram</strong>.</p>
-                            </div>
-                            
-                            <div class="flex gap-3 items-center">
-                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold mt-0.5">4</span>
-                                <div class="flex-1 flex flex-wrap items-center gap-2">
-                                    <span class="text-white font-bold text-xs md:text-sm">Купите подписку.</span>
-                                    <a href="https://t.me/BitTurboBot" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-[10px] md:text-xs font-bold rounded-lg transition shadow-lg shadow-blue-500/20">
-                                        <i class="ph-bold ph-telegram-logo"></i> Оплатить в боте
-                                    </a>
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+                                <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-gray-300 flex-shrink-0 mt-0.5">3</div>
+                                <div>
+                                    <div class="font-bold text-white text-base mb-1">Включите VPN</div>
+                                    <div class="text-sm text-gray-400 leading-snug">
+                                        С этим ключом работает <strong class="text-yellow-400">только Telegram</strong>.
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="flex gap-3 items-start">
-                                <span class="flex-shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-[10px] font-bold text-gray-400 mt-0.5">5</span>
-                                <p class="leading-snug text-xs md:text-sm"><span class="text-white font-bold">Активируйте доступ.</span> Бот выдаст новый ключ. Замените им временный.</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-blue-600/10 p-4 rounded-xl border border-blue-500/40 shadow-lg shadow-blue-500/10">
+                                <div class="flex items-center gap-3 w-full sm:w-auto">
+                                    <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">4</div>
+                                    <span class="font-bold text-white text-lg sm:text-base">Купите подписку</span>
+                                </div>
+                                <a href="https://t.me/BitTurboBot" target="_blank" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-lg transition shadow-lg shadow-blue-500/20 sm:ml-auto">
+                                    <i class="ph-bold ph-telegram-logo text-lg"></i> Оплатить в боте
+                                </a>
+                            </div>
+
+                            <div class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+                                <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-gray-300 flex-shrink-0 mt-0.5">5</div>
+                                <div>
+                                    <div class="font-bold text-white text-base mb-1">Активируйте доступ</div>
+                                    <div class="text-sm text-gray-400 leading-snug">
+                                        Бот выдаст новый ключ. Замените им временный.
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                    </div>
+                        </div>
                 </div>
 
                 <div id="sos-card-collapsed" class="hidden cursor-pointer" onclick="toggleSOS(true)">
@@ -497,17 +506,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="py-20">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-white mb-6">Готовы к безопасному интернету?</h2>
-            <p class="text-xl text-gray-400 mb-10">Пробный период бесплатно. Никакой рекламы. Высокая скорость.</p>
-            <a href="https://t.me/BitTurboBot" target="_blank" class="inline-flex px-10 py-5 rounded-full text-xl font-bold text-white btn-primary shadow-2xl shadow-blue-500/40 hover:scale-105 transition-transform">
-                Перейти в бота
-                <i class="ph-bold ph-arrow-right ml-2 mt-1"></i>
-            </a>
         </div>
     </section>
 
