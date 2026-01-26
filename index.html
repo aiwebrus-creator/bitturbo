@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO: Улучшенный заголовок и описание -->
     <title>BitTurboBot — Премиум Ускоритель Интернета и Защита Данных | VPN VLESS</title>
     <meta name="description" content="Официальный сайт BitTurboBot. Безопасный и быстрый интернет до 2.5 Гбит/с. Защита конфиденциальности, отсутствие логов, протоколы VLESS + Reality. Попробуйте бесплатно!">
     
-    <!-- Tailwind CSS (для стилей) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
-    <!-- Icons (Phosphor Icons) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <script>
@@ -27,7 +23,7 @@
                         brand: {
                             dark: '#0B0F19',
                             card: '#151B2B',
-                            accent: '#3B82F6', // Blue
+                            accent: '#3B82F6', 
                             glow: '#60A5FA',
                             success: '#10B981' 
                         }
@@ -54,12 +50,10 @@
             overflow-x: hidden;
         }
         
-        /* Эффект свечения для заголовков */
         .text-glow {
             text-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
         }
         
-        /* Стеклянный эффект для карточек */
         .glass-card {
             background: rgba(21, 27, 43, 0.7);
             backdrop-filter: blur(12px);
@@ -73,14 +67,12 @@
             box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.2);
         }
 
-        /* Градиентный текст */
         .gradient-text {
             background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Кнопка с эффектом */
         .btn-primary {
             background: linear-gradient(90deg, #2563EB 0%, #4F46E5 100%);
             position: relative;
@@ -105,7 +97,6 @@
             opacity: 1;
         }
 
-        /* Специфический стиль сетки из 2.html */
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -115,13 +106,11 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
     <header class="fixed w-full top-0 z-50 glass-card border-b-0 border-b-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <!-- LOGO IN HEADER (ALT ADDED) -->
-                    <img src="logo.jpg" alt="Логотип BitTurboBot - Безопасный Интернет" class="h-14 w-14 rounded-full shadow-lg shadow-blue-500/20 ring-2 ring-white/10 object-cover">
+                    <img src="logo.jpg" alt="Логотип BitTurboBot" class="h-14 w-14 rounded-full shadow-lg shadow-blue-500/20 ring-2 ring-white/10 object-cover">
                     <span class="font-bold text-xl tracking-wide text-white">BitTurbo<span class="text-blue-500">Bot</span></span>
                 </div>
                 
@@ -136,13 +125,11 @@
                     Подключить
                 </a>
                 
-                <!-- Mobile menu button -->
                 <button class="md:hidden text-gray-300 hover:text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                     <i class="ph ph-list text-3xl"></i>
                 </button>
             </div>
         </div>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-brand-card p-4 border-t border-white/10">
             <a href="#features" class="block py-2 text-gray-300">Преимущества</a>
             <a href="#security" class="block py-2 text-gray-300">Безопасность</a>
@@ -151,15 +138,143 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <!-- Background Elements -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
             <div class="absolute top-20 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] animate-pulse-slow"></div>
             <div class="absolute bottom-20 right-1/4 w-80 h-80 bg-purple-600/20 rounded-full blur-[100px] animate-pulse-slow" style="animation-delay: 1s;"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <div id="guest-connect-card" class="hidden mb-12 max-w-4xl mx-auto transform transition-all duration-500 ease-out translate-y-4 opacity-0">
+                <div class="glass-card rounded-2xl p-1 border border-yellow-500/50 shadow-[0_0_40px_rgba(234,179,8,0.2)] relative overflow-hidden bg-[#0B0F19]/90 backdrop-blur-xl">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500/20 rounded-full blur-[60px] animate-pulse-slow"></div>
+
+                    <div class="relative z-10 p-5 md:p-8 text-left">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-white/10 pb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                                    <i class="ph-fill ph-warning-circle text-yellow-500 animate-pulse"></i>
+                                    Телеграм не работает?
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-1">
+                                    Чтобы купить подписку, подключитесь к временному шлюзу.
+                                </p>
+                            </div>
+                            <div id="device-badge" class="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-300 flex items-center gap-2 whitespace-nowrap">
+                                <i class="ph ph-spinner animate-spin"></i> Определяем устройство...
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="space-y-3">
+                                <div class="text-xs text-blue-400 font-bold uppercase tracking-wider">Шаг 1: Установка</div>
+                                <a id="download-btn" href="#" target="_blank" class="block group relative overflow-hidden rounded-xl bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition-all">
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg">1</div>
+                                        <div>
+                                            <div id="download-text" class="text-white font-bold">Скачать приложение</div>
+                                            <div class="text-xs text-gray-500 mt-0.5">Hiddify, Happ или V2RayTun</div>
+                                        </div>
+                                        <i class="ph-bold ph-download-simple ml-auto text-gray-500 group-hover:text-white transition"></i>
+                                    </div>
+                                </a>
+                                <div class="text-[10px] text-gray-500 pl-1">
+                                    <button onclick="togglePlatforms()" class="hover:text-white underline decoration-dashed">Показать все приложения</button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="text-xs text-green-400 font-bold uppercase tracking-wider">Шаг 2: Временный ключ</div>
+                                <div class="flex gap-2">
+                                    <button onclick="importKey()" class="flex-1 group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 p-4 hover:shadow-lg hover:shadow-green-500/20 transition-all text-left">
+                                        <div class="flex items-center gap-3">
+                                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-black/20 text-white flex items-center justify-center font-bold text-lg">2</div>
+                                            <div>
+                                                <div class="text-white font-bold text-sm">Подключить</div>
+                                                <div class="text-[10px] text-green-100 opacity-80">Авто-импорт ключа</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <button onclick="copyKey()" class="px-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition text-gray-400 hover:text-white" title="Скопировать ключ вручную">
+                                        <i class="ph-bold ph-copy text-xl"></i>
+                                    </button>
+                                </div>
+                                <div class="text-[10px] text-gray-500 pl-1">Импортируйте ключ и включите VPN</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-black/20 rounded-xl p-4 border border-white/5 space-y-3 text-sm text-gray-300">
+                            <div class="flex gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400">3</span>
+                                <p><span class="text-white font-semibold">Включите VPN.</span> С этим ключом работает <strong class="text-yellow-400">только Telegram</strong>.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400">4</span>
+                                <p><span class="text-white font-semibold">Купите подписку.</span> Перейдите в бота <a href="https://t.me/BitTurboBot" class="text-blue-400 hover:underline">@BitTurbobot</a> и оплатите тариф.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400">5</span>
+                                <p><span class="text-white font-semibold">Активируйте полный доступ.</span> Бот выдаст новый ключ. Замените им временный — заработает весь интернет на полной скорости!</p>
+                            </div>
+                        </div>
+
+                        <div id="all-platforms" class="hidden mt-6 pt-6 border-t border-white/10">
+                            <h4 class="text-sm font-bold text-white mb-4">Все приложения:</h4>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                
+                                <div class="space-y-2">
+                                    <div class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">Happ</div>
+                                    <a href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-apple-logo text-lg"></i> iOS (AppStore RU)
+                                    </a>
+                                    <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-globe text-lg"></i> iOS (Global)
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-android-logo text-lg"></i> Android (Play)
+                                    </a>
+                                    <a href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-file-apk text-lg"></i> Android (APK)
+                                    </a>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="text-xs font-bold text-green-400 uppercase tracking-widest mb-1">V2RayTun</div>
+                                    <a href="https://apps.apple.com/ru/app/v2raytun/id6476628951" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-apple-logo text-lg"></i> iOS (AppStore)
+                                    </a>
+                                    <a href="https://apps.apple.com/en/app/v2raytun/id6476628951" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-app-window text-lg"></i> macOS (AppStore)
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.v2raytun.android&hl=ru" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-android-logo text-lg"></i> Android (Play)
+                                    </a>
+                                    <a href="https://storage.v2raytun.com/v2RayTun_Setup.exe" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-windows-logo text-lg"></i> Windows
+                                    </a>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">Hiddify</div>
+                                    <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Windows-Setup-x64.Msix" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-windows-logo text-lg"></i> Windows
+                                    </a>
+                                    <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-app-window text-lg"></i> macOS (DMG)
+                                    </a>
+                                    <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Linux-x64.AppImage" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
+                                        <i class="ph-fill ph-linux-logo text-lg"></i> Linux
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
                 <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
                 <span class="text-sm font-medium text-gray-300">Стабильное соединение в Европе</span>
@@ -185,7 +300,6 @@
                 </a>
             </div>
 
-            <!-- Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/10 pt-10">
                 <div>
                     <div class="text-3xl font-bold text-white mb-1">2.5 Гбит/с</div>
@@ -207,7 +321,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="py-20 bg-brand-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -216,7 +329,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
                 <div class="glass-card p-8 rounded-2xl">
                     <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6 text-blue-400">
                         <i class="ph-fill ph-lightning text-3xl"></i>
@@ -229,7 +341,6 @@
                     </ul>
                 </div>
 
-                <!-- Feature 2 -->
                 <div class="glass-card p-8 rounded-2xl">
                     <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 text-purple-400">
                         <i class="ph-fill ph-shield-check text-3xl"></i>
@@ -242,7 +353,6 @@
                     </ul>
                 </div>
 
-                <!-- Feature 3 -->
                 <div class="glass-card p-8 rounded-2xl">
                     <div class="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center mb-6 text-green-400">
                         <i class="ph-fill ph-thumbs-up text-3xl"></i>
@@ -258,11 +368,9 @@
         </div>
     </section>
 
-    <!-- Referral Bonus Section -->
     <section class="py-12">
         <div class="max-w-5xl mx-auto px-4">
             <div class="relative rounded-3xl overflow-hidden p-10 text-center">
-                <!-- Gradient BG -->
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-50"></div>
                 <div class="absolute inset-0 backdrop-blur-md"></div>
                 
@@ -287,7 +395,6 @@
         </div>
     </section>
 
-    <!-- Why Necessary Section (Educational) -->
     <section id="security" class="py-20 bg-[#0F1420]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -333,11 +440,9 @@
                     </div>
                 </div>
 
-                <!-- Visual Abstract Image Placeholder WITH LOGO (ALT ADDED) -->
                 <div class="relative h-full min-h-[400px] rounded-2xl overflow-hidden glass-card flex items-center justify-center group">
                     <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 group-hover:opacity-100 transition duration-500"></div>
                     
-                    <!-- Логотип BitTurboBot -->
                     <div class="flex flex-col items-center group-hover:scale-105 transition-transform duration-500 z-10 -translate-y-12">
                         <div class="relative">
                             <div class="absolute inset-0 bg-blue-500 blur-2xl opacity-20 rounded-full"></div>
@@ -355,13 +460,11 @@
         </div>
     </section>
 
-    <!-- Instruction Section -->
     <section id="install" class="py-20 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-12">Инструкция по подключению</h2>
             
             <div class="steps-grid">
-                <!-- Step 1 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/1.jpg" alt="Скриншот Шаг 1: Запуск бота BitTurboBot" class="w-full h-full object-cover">
@@ -373,7 +476,6 @@
                     </div>
                 </div>
 
-                <!-- Step 2 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/2.jpg" alt="Скриншот Шаг 2: Прохождение капчи" class="w-full h-full object-cover">
@@ -385,7 +487,6 @@
                     </div>
                 </div>
 
-                <!-- Step 3 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/3.jpg" alt="Скриншот Шаг 3: Меню подключения" class="w-full h-full object-cover">
@@ -397,7 +498,6 @@
                     </div>
                 </div>
 
-                <!-- Step 4 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/4.jpg" alt="Скриншот Шаг 4: Запуск Mini App" class="w-full h-full object-cover">
@@ -409,7 +509,6 @@
                     </div>
                 </div>
 
-                <!-- Step 5 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/5.jpg" alt="Скриншот Шаг 5: Выбор приложения Happ или V2RayTun" class="w-full h-full object-cover">
@@ -421,7 +520,6 @@
                     </div>
                 </div>
 
-                <!-- Step 6 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/6.jpg" alt="Скриншот Шаг 6: Добавление подписки" class="w-full h-full object-cover">
@@ -433,7 +531,6 @@
                     </div>
                 </div>
 
-                <!-- Step 7 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/7.jpg" alt="Скриншот Шаг 7: Автонастройка конфигурации" class="w-full h-full object-cover">
@@ -445,13 +542,11 @@
                     </div>
                 </div>
 
-                <!-- Step 8 -->
                 <div class="glass-card rounded-2xl overflow-hidden border border-green-500/20 flex flex-col hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-full relative border-b border-white/5">
                         <img src="images/8.jpg" alt="Скриншот Шаг 8: Успешное подключение" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6 flex flex-col flex-grow relative">
-                        <!-- Success Badge -->
                         <div class="absolute top-4 right-4 text-green-500 bg-green-500/10 p-2 rounded-full">
                             <i class="ph-bold ph-check"></i>
                         </div>
@@ -464,7 +559,6 @@
         </div>
     </section>
 
-    <!-- Final CTA -->
     <section class="py-20">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-4xl font-bold text-white mb-6">Готовы к безопасному интернету?</h2>
@@ -476,13 +570,11 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-[#05080F] border-t border-white/5 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center gap-8">
                 <div class="flex flex-col md:flex-row justify-between w-full items-center gap-6">
                     <div class="flex items-center gap-3">
-                        <!-- LOGO IN FOOTER (ALT ADDED) -->
                         <img src="logo.jpg" alt="Логотип BitTurboBot" class="h-12 w-12 rounded-full shadow-lg shadow-blue-500/20 ring-1 ring-white/10 object-cover">
                         <span class="font-bold text-lg text-white">BitTurboBot</span>
                     </div>
@@ -498,7 +590,6 @@
                     </div>
                 </div>
 
-                <!-- Disclaimer Text -->
                 <div class="max-w-3xl text-center space-y-4">
                      <p class="text-xs text-gray-400 leading-relaxed opacity-90">
                         Премиальный сервис защиты цифровой конфиденциальности. 
@@ -514,5 +605,121 @@
         </div>
     </footer>
 
+    <script>
+        // === 1. НАСТРОЙКИ ВАШЕГО СЕРВЕРА ===
+        const SERVER_CONFIG = {
+            ip: "144.31.203.3",                              
+            port: "8443", // Проверьте порт в 3X-UI!                                   
+            uuid: "1f0b474d-da26-4f26-bbad-3114d9cb6950",    
+            pbk: "8Z6V2BCM1sfpnXJmOuXC1mBjBo3lRvBtCvPPYNjGoFU", 
+            sni: "www.bing.com",                             
+            sid: "440bef7051",                               
+            name: "Guest-Telegram-free_guest"                    
+        };
+
+        const vlessLink = `vless://${SERVER_CONFIG.uuid}@${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}?type=tcp&encryption=none&security=reality&pbk=${SERVER_CONFIG.pbk}&fp=chrome&sni=${SERVER_CONFIG.sni}&sid=${SERVER_CONFIG.sid}&spx=%2F#${encodeURIComponent(SERVER_CONFIG.name)}`;
+
+        // === 2. ДАННЫЕ О ПРИЛОЖЕНИЯХ ===
+        const APP_LINKS = {
+            android: {
+                name: "HAPP",
+                url: "https://play.google.com/store/apps/details?id=com.happproxy",
+                icon: "ph-android-logo"
+            },
+            ios: {
+                name: "HAPP", 
+                url: "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973",
+                icon: "ph-apple-logo"
+            },
+            windows: {
+                name: "Hiddify",
+                url: "https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Windows-Setup-x64.Msix",
+                icon: "ph-windows-logo"
+            },
+            macos: {
+                name: "Hiddify",
+                url: "https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg",
+                icon: "ph-app-window"
+            }
+        };
+
+        // === 3. ЛОГИКА ПРИ ЗАГРУЗКЕ ===
+        document.addEventListener("DOMContentLoaded", () => {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const card = document.getElementById('guest-connect-card');
+            const badge = document.getElementById('device-badge');
+            const dlBtn = document.getElementById('download-btn');
+            const dlText = document.getElementById('download-text');
+
+            let os = "unknown";
+            if (/android/i.test(userAgent)) os = "android";
+            else if (/iphone|ipad|ipod/i.test(userAgent)) os = "ios";
+            else if (/windows/i.test(userAgent)) os = "windows";
+            else if (/mac/i.test(userAgent)) os = "macos";
+
+            if (APP_LINKS[os]) {
+                const app = APP_LINKS[os];
+                badge.innerHTML = `<i class="ph-fill ${app.icon} text-white"></i> <span>Устройство: ${os.charAt(0).toUpperCase() + os.slice(1)}</span>`;
+                dlBtn.href = app.url;
+                dlText.innerText = `Скачать ${app.name}`;
+                
+                if(os === 'android') badge.classList.add('bg-green-500/20', 'text-green-300', 'border-green-500/30');
+                if(os === 'ios') badge.classList.add('bg-blue-500/20', 'text-blue-300', 'border-blue-500/30');
+            } else {
+                badge.innerHTML = `<i class="ph ph-question"></i> <span>Устройство не определено</span>`;
+                dlText.innerText = "Выбрать приложение";
+                dlBtn.onclick = (e) => { e.preventDefault(); togglePlatforms(); };
+            }
+
+            if (card) {
+                card.classList.remove('hidden');
+                setTimeout(() => {
+                    card.classList.remove('translate-y-4', 'opacity-0');
+                }, 100);
+            }
+        });
+
+        // === 4. ФУНКЦИИ ===
+        
+        function importKey() {
+            window.location.href = vlessLink;
+
+            navigator.clipboard.writeText(vlessLink).then(() => {
+                const btn = document.querySelector('button[onclick="importKey()"]');
+                if(btn) {
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = `<div class="flex items-center gap-3"><i class="ph-bold ph-check text-white"></i><div><div class="text-xs text-white/80">Готово!</div><div class="text-white text-sm font-bold">Ключ скопирован</div></div></div>`;
+                    btn.classList.remove('from-green-600', 'to-emerald-600');
+                    btn.classList.add('bg-green-500');
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.classList.add('from-green-600', 'to-emerald-600');
+                        btn.classList.remove('bg-green-500');
+                    }, 3000);
+                }
+                
+                if (!/iphone|ipad|ipod|android/i.test(navigator.userAgent)) {
+                     alert("Ключ скопирован! \n\n1. Откройте приложение.\n2. Нажмите 'Вставить из буфера' (Import from clipboard).\n3. Подключитесь.");
+                }
+            }).catch(err => {
+                console.error(err);
+                prompt("Скопируйте ключ вручную:", vlessLink);
+            });
+        }
+
+        function copyKey() {
+            navigator.clipboard.writeText(vlessLink).then(() => {
+                alert("Ключ успешно скопирован! \n\nВставьте его в приложение (через кнопку 'Import from Clipboard').");
+            }).catch(() => {
+                prompt("Скопируйте ключ вручную:", vlessLink);
+            });
+        }
+
+        function togglePlatforms() {
+            const list = document.getElementById('all-platforms');
+            if(list) list.classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>
