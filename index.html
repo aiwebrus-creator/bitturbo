@@ -16,7 +16,8 @@
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brand: { dark: '#0B0F19', card: '#151B2B', accent: '#3B82F6' }
+                        brand: { dark: '#0B0F19', card: '#151B2B', accent: '#3B82F6' },
+                        step: { card: '#131722', border: '#1F2433' }
                     },
                     animation: { 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
                 }
@@ -59,6 +60,22 @@
         .os-tab { transition: all 0.2s; border: 1px solid transparent; }
         .os-tab.active { background-color: #3B82F6; color: white; border-color: #60A5FA; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
         .os-tab:not(.active):hover { background-color: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+
+        /* Step Card Style */
+        .step-card {
+            background-color: #11151F; /* Darker background like in screenshot 2 */
+            border: 1px solid #232936;
+            border-radius: 1rem;
+            transition: transform 0.2s;
+        }
+        .step-card:hover { transform: translateY(-2px); border-color: #3B82F6; }
+        .step-icon-box {
+            width: 3rem; height: 3rem;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 0.75rem;
+            background-color: rgba(255,255,255,0.05);
+            color: #fbbf24; /* Amber/Yellow default */
+        }
 
         /* Scroll Top Button */
         #scrollTopBtn {
@@ -142,7 +159,7 @@
                         </div>
                     </div>
 
-                    <div class="p-5 md:p-6 pt-6 space-y-8">
+                    <div class="p-5 md:p-6 pt-6 space-y-6">
                         
                         <div>
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
@@ -171,7 +188,7 @@
                         </div>
 
                         <div>
-                            <div class="text-xs text-green-400 font-black uppercase tracking-widest mb-3">Шаг 2: Подключение</div>
+                            <div class="text-xs text-green-400 font-black uppercase tracking-widest mb-3">Шаг 2: Временный ключ</div>
                             <div class="flex flex-col sm:flex-row gap-3">
                                 <button onclick="importKey()" class="flex-1 group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 p-4 hover:shadow-lg hover:shadow-green-500/20 transition-all text-left border border-green-500/30">
                                     <div class="flex items-center gap-4">
@@ -190,36 +207,47 @@
                             <div class="text-[10px] text-gray-500 mt-2 pl-1">Если авто-подключение не сработало, скопируйте ключ и вставьте в приложение вручную.</div>
                         </div>
 
-                        <div class="space-y-4 pt-2">
-                            <div class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
-                                <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-gray-300 flex-shrink-0 mt-0.5">3</div>
-                                <div>
-                                    <div class="font-bold text-white text-base mb-1">Включите VPN</div>
-                                    <div class="text-sm text-gray-400 leading-snug">
-                                        С этим ключом работает <strong class="text-yellow-400">только Telegram</strong>.
-                                    </div>
+                        <div class="space-y-4 pt-4">
+                            
+                            <div class="step-card p-5 flex items-start gap-4">
+                                <div class="step-icon-box text-yellow-500 bg-yellow-500/10 flex-shrink-0">
+                                    <i class="ph-fill ph-power text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-white font-bold text-lg mb-1">Шаг 3: Включите соединение</h4>
+                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                        Зайдите в приложение и активируйте соединение. <span class="text-yellow-400 font-bold">Внимание:</span> с этим ключом у вас будет работать <span class="text-white font-bold">только Telegram</span>. Это позволит вам перейти к следующему шагу.
+                                    </p>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-blue-600/10 p-4 rounded-xl border border-blue-500/40 shadow-lg shadow-blue-500/10">
-                                <div class="flex items-center gap-3 w-full sm:w-auto">
-                                    <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">4</div>
-                                    <span class="font-bold text-white text-lg sm:text-base">Купите подписку</span>
+                            <div class="step-card p-5 flex flex-col sm:flex-row items-start gap-4">
+                                <div class="step-icon-box text-blue-400 bg-blue-500/10 flex-shrink-0">
+                                    <i class="ph-fill ph-paper-plane-right text-2xl"></i>
                                 </div>
-                                <a href="https://t.me/BitTurboBot" target="_blank" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-lg transition shadow-lg shadow-blue-500/20 sm:ml-auto">
-                                    <i class="ph-bold ph-telegram-logo text-lg"></i> Оплатить в боте
-                                </a>
+                                <div class="flex-1 w-full">
+                                    <h4 class="text-white font-bold text-lg mb-1">Шаг 4: Купите полную подписку</h4>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                        Теперь, когда Telegram доступен, перейдите в нашего бота <a href="https://t.me/BitTurboBot" class="text-blue-400 hover:underline">@BitTurbobot</a> и оплатите полную подписку.
+                                    </p>
+                                    <a href="https://t.me/BitTurboBot" target="_blank" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-lg transition">
+                                        Оплатить в боте <i class="ph-bold ph-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
 
-                            <div class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
-                                <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-gray-300 flex-shrink-0 mt-0.5">5</div>
-                                <div>
-                                    <div class="font-bold text-white text-base mb-1">Активируйте доступ</div>
-                                    <div class="text-sm text-gray-400 leading-snug">
-                                        Бот выдаст новый ключ. Замените им временный.
-                                    </div>
+                            <div class="step-card p-5 flex items-start gap-4">
+                                <div class="step-icon-box text-green-400 bg-green-500/10 flex-shrink-0">
+                                    <i class="ph-fill ph-magic-wand text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-white font-bold text-lg mb-1">Шаг 5: Активируйте полный доступ</h4>
+                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                        После оплаты бот выдаст вам <span class="text-white font-bold">новый, постоянный ключ</span>. Замените им временный ключ в приложении. Весь интернет, включая YouTube и Instagram, заработает на полной скорости!
+                                    </p>
                                 </div>
                             </div>
+
                         </div>
                         </div>
                 </div>
