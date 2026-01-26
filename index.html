@@ -102,6 +102,22 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
+
+        /* Styles for OS Tabs */
+        .os-tab {
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .os-tab.active {
+            background-color: #3B82F6;
+            color: white;
+            border-color: #60A5FA;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+        .os-tab:not(.active):hover {
+            background-color: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -146,135 +162,106 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             
-            <div id="guest-connect-card" class="hidden mb-12 max-w-4xl mx-auto transform transition-all duration-500 ease-out translate-y-4 opacity-0">
-                <div class="glass-card rounded-2xl p-1 border border-yellow-500/50 shadow-[0_0_40px_rgba(234,179,8,0.2)] relative overflow-hidden bg-[#0B0F19]/90 backdrop-blur-xl">
-                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500/20 rounded-full blur-[60px] animate-pulse-slow"></div>
-
-                    <div class="relative z-10 p-5 md:p-8 text-left">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-white/10 pb-4">
-                            <div>
-                                <h3 class="text-2xl font-bold text-white flex items-center gap-2">
-                                    <i class="ph-fill ph-warning-circle text-yellow-500 animate-pulse"></i>
-                                    Телеграм не работает?
-                                </h3>
-                                <p class="text-gray-400 text-sm mt-1">
-                                    Чтобы купить подписку, подключитесь к временному шлюзу.
-                                </p>
-                            </div>
-                            <div id="device-badge" class="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                                <i class="ph ph-spinner animate-spin"></i> Определяем устройство...
-                            </div>
+            <div id="guest-connect-card" class="hidden mb-12 max-w-5xl mx-auto transform transition-all duration-500 ease-out translate-y-4 opacity-0 text-left">
+                <div class="glass-card rounded-2xl border border-yellow-500/30 shadow-[0_0_50px_rgba(234,179,8,0.15)] relative overflow-hidden bg-[#0B0F19]/90 backdrop-blur-xl">
+                    
+                    <div class="flex justify-between items-start p-6 pb-0">
+                        <div class="flex-1 pr-8">
+                            <h3 class="text-2xl md:text-3xl font-black text-white flex items-center gap-3 mb-2">
+                                <i class="ph-fill ph-warning-circle text-yellow-500 animate-pulse"></i>
+                                Не работает Telegram?
+                            </h3>
+                            <p class="text-gray-300 text-sm md:text-base leading-relaxed max-w-2xl">
+                                Провайдер блокирует доступ? Используйте наш <span class="text-yellow-400 font-bold">бесплатный SOS-ключ</span>. 
+                                Он откроет доступ к Telegram, чтобы вы могли купить полную подписку.
+                            </p>
                         </div>
+                        
+                        <div class="flex flex-col items-end gap-2">
+                             <button onclick="document.getElementById('guest-connect-card').style.display='none'" class="text-gray-500 hover:text-white transition p-1" title="Свернуть">
+                                <i class="ph-bold ph-x text-xl"></i>
+                            </button>
+                            <a href="https://t.me/BitTurboBot" target="_blank" class="hidden sm:inline-flex items-center gap-2 text-xs font-bold bg-white/5 hover:bg-white/10 text-blue-400 py-2 px-4 rounded-full transition border border-white/5">
+                                <i class="ph-bold ph-telegram-logo"></i>
+                                Telegram уже работает — перейти в бота
+                            </a>
+                        </div>
+                    </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <div class="space-y-3">
-                                <div class="text-xs text-blue-400 font-bold uppercase tracking-wider">Шаг 1: Установка</div>
-                                <a id="download-btn" href="#" target="_blank" class="block group relative overflow-hidden rounded-xl bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition-all">
-                                    <div class="flex items-center gap-4">
-                                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg">1</div>
-                                        <div>
-                                            <div id="download-text" class="text-white font-bold">Скачать приложение</div>
-                                            <div class="text-xs text-gray-500 mt-0.5">Hiddify, Happ или V2RayTun</div>
-                                        </div>
-                                        <i class="ph-bold ph-download-simple ml-auto text-gray-500 group-hover:text-white transition"></i>
-                                    </div>
-                                </a>
-                                <div class="text-[10px] text-gray-500 pl-1">
-                                    <button onclick="togglePlatforms()" class="hover:text-white underline decoration-dashed">Показать все приложения</button>
-                                </div>
-                            </div>
-
-                            <div class="space-y-3">
-                                <div class="text-xs text-green-400 font-bold uppercase tracking-wider">Шаг 2: Временный ключ</div>
-                                <div class="flex gap-2">
-                                    <button onclick="importKey()" class="flex-1 group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 p-4 hover:shadow-lg hover:shadow-green-500/20 transition-all text-left">
-                                        <div class="flex items-center gap-3">
-                                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-black/20 text-white flex items-center justify-center font-bold text-lg">2</div>
-                                            <div>
-                                                <div class="text-white font-bold text-sm">Подключить</div>
-                                                <div class="text-[10px] text-green-100 opacity-80">Авто-импорт ключа</div>
-                                            </div>
-                                        </div>
+                    <div class="p-6 pt-8 space-y-8">
+                        
+                        <div>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
+                                <div class="text-xs text-blue-400 font-black uppercase tracking-widest">Шаг 1: Приложение</div>
+                                <div class="flex flex-wrap gap-2 p-1 bg-black/20 rounded-lg w-fit">
+                                    <button onclick="renderApps('ios')" id="tab-ios" class="os-tab px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
+                                        <i class="ph-bold ph-apple-logo"></i> iOS
                                     </button>
-                                    <button onclick="copyKey()" class="px-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition text-gray-400 hover:text-white" title="Скопировать ключ вручную">
-                                        <i class="ph-bold ph-copy text-xl"></i>
+                                    <button onclick="renderApps('android')" id="tab-android" class="os-tab px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
+                                        <i class="ph-bold ph-android-logo"></i> Android
+                                    </button>
+                                    <button onclick="renderApps('windows')" id="tab-windows" class="os-tab px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
+                                        <i class="ph-bold ph-windows-logo"></i> Windows
+                                    </button>
+                                    <button onclick="renderApps('macos')" id="tab-macos" class="os-tab px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
+                                        <i class="ph-bold ph-app-window"></i> macOS
+                                    </button>
+                                    <button onclick="renderApps('linux')" id="tab-linux" class="os-tab px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
+                                        <i class="ph-bold ph-linux-logo"></i> Linux
                                     </button>
                                 </div>
-                                <div class="text-[10px] text-gray-500 pl-1">Импортируйте ключ и включите VPN</div>
                             </div>
-                        </div>
-
-                        <div class="bg-black/20 rounded-xl p-4 border border-white/5 space-y-3 text-sm text-gray-300">
-                            <div class="flex gap-3">
-                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400">3</span>
-                                <p><span class="text-white font-semibold">Включите VPN.</span> С этим ключом работает <strong class="text-yellow-400">только Telegram</strong>.</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400">4</span>
-                                <p><span class="text-white font-semibold">Купите подписку.</span> Перейдите в бота <a href="https://t.me/BitTurboBot" class="text-blue-400 hover:underline">@BitTurbobot</a> и оплатите тариф.</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400">5</span>
-                                <p><span class="text-white font-semibold">Активируйте полный доступ.</span> Бот выдаст новый ключ. Замените им временный — заработает весь интернет на полной скорости!</p>
-                            </div>
-                        </div>
-
-                        <div id="all-platforms" class="hidden mt-6 pt-6 border-t border-white/10">
-                            <h4 class="text-sm font-bold text-white mb-4">Все приложения:</h4>
                             
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                                
-                                <div class="space-y-2">
-                                    <div class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">Happ</div>
-                                    <a href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-apple-logo text-lg"></i> iOS (AppStore RU)
-                                    </a>
-                                    <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-globe text-lg"></i> iOS (Global)
-                                    </a>
-                                    <a href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-android-logo text-lg"></i> Android (Play)
-                                    </a>
-                                    <a href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-file-apk text-lg"></i> Android (APK)
+                            <div id="apps-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                </div>
+                        </div>
+
+                        <div>
+                            <div class="text-xs text-green-400 font-black uppercase tracking-widest mb-3">Шаг 2: Подключение</div>
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button onclick="importKey()" class="flex-1 group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 p-5 hover:shadow-lg hover:shadow-green-500/20 transition-all text-left border border-green-500/30">
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-black/20 text-white flex items-center justify-center font-bold text-xl shadow-inner">2</div>
+                                        <div>
+                                            <div class="text-white font-bold text-lg">Подключить</div>
+                                            <div class="text-xs text-green-100 opacity-90 font-medium">Нажмите для авто-импорта ключа</div>
+                                        </div>
+                                        <i class="ph-bold ph-plugs-connected ml-auto text-3xl text-green-200 opacity-50 group-hover:opacity-100 transition"></i>
+                                    </div>
+                                </button>
+                                <button onclick="copyKey()" class="sm:w-20 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition text-gray-400 hover:text-white flex items-center justify-center" title="Скопировать ключ вручную">
+                                    <i class="ph-bold ph-copy text-2xl"></i>
+                                </button>
+                            </div>
+                            <div class="text-[11px] text-gray-500 mt-2 pl-1">Если авто-подключение не сработало, скопируйте ключ и вставьте в приложение вручную.</div>
+                        </div>
+
+                        <div class="bg-black/20 rounded-xl p-5 border border-white/5 space-y-4 text-sm text-gray-300">
+                            <div class="flex gap-4 items-start">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400 mt-0.5">3</span>
+                                <p class="leading-relaxed"><span class="text-white font-bold">Включите VPN.</span> С этим ключом работает <strong class="text-yellow-400">только Telegram</strong>.</p>
+                            </div>
+                            
+                            <div class="flex gap-4 items-center">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">4</span>
+                                <div class="flex-1 flex flex-wrap items-center gap-3">
+                                    <span class="text-white font-bold">Купите подписку.</span>
+                                    <a href="https://t.me/BitTurboBot" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition shadow-lg shadow-blue-500/20">
+                                        <i class="ph-bold ph-telegram-logo"></i> Перейти в @BitTurboBot и оплатить
                                     </a>
                                 </div>
+                            </div>
 
-                                <div class="space-y-2">
-                                    <div class="text-xs font-bold text-green-400 uppercase tracking-widest mb-1">V2RayTun</div>
-                                    <a href="https://apps.apple.com/ru/app/v2raytun/id6476628951" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-apple-logo text-lg"></i> iOS (AppStore)
-                                    </a>
-                                    <a href="https://apps.apple.com/en/app/v2raytun/id6476628951" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-app-window text-lg"></i> macOS (AppStore)
-                                    </a>
-                                    <a href="https://play.google.com/store/apps/details?id=com.v2raytun.android&hl=ru" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-android-logo text-lg"></i> Android (Play)
-                                    </a>
-                                    <a href="https://storage.v2raytun.com/v2RayTun_Setup.exe" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-windows-logo text-lg"></i> Windows
-                                    </a>
-                                </div>
-
-                                <div class="space-y-2">
-                                    <div class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">Hiddify</div>
-                                    <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Windows-Setup-x64.Msix" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-windows-logo text-lg"></i> Windows
-                                    </a>
-                                    <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-app-window text-lg"></i> macOS (DMG)
-                                    </a>
-                                    <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Linux-x64.AppImage" target="_blank" class="flex items-center gap-2 p-2 bg-white/5 rounded hover:bg-white/10 transition text-xs text-gray-300 hover:text-white">
-                                        <i class="ph-fill ph-linux-logo text-lg"></i> Linux
-                                    </a>
-                                </div>
-
+                            <div class="flex gap-4 items-start">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-gray-400 mt-0.5">5</span>
+                                <p class="leading-relaxed"><span class="text-white font-bold">Активируйте полный доступ.</span> Бот выдаст новый ключ. Замените им временный — заработает весь интернет на полной скорости!</p>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
+
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
                 <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
                 <span class="text-sm font-medium text-gray-300">Стабильное соединение в Европе</span>
@@ -606,10 +593,10 @@
     </footer>
 
     <script>
-        // === 1. НАСТРОЙКИ ВАШЕГО СЕРВЕРА ===
+        // === SERVER CONFIG ===
         const SERVER_CONFIG = {
             ip: "144.31.203.3",                              
-            port: "8443", // Проверьте порт в 3X-UI!                                   
+            port: "8443",                                  
             uuid: "1f0b474d-da26-4f26-bbad-3114d9cb6950",    
             pbk: "8Z6V2BCM1sfpnXJmOuXC1mBjBo3lRvBtCvPPYNjGoFU", 
             sni: "www.bing.com",                             
@@ -619,58 +606,48 @@
 
         const vlessLink = `vless://${SERVER_CONFIG.uuid}@${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}?type=tcp&encryption=none&security=reality&pbk=${SERVER_CONFIG.pbk}&fp=chrome&sni=${SERVER_CONFIG.sni}&sid=${SERVER_CONFIG.sid}&spx=%2F#${encodeURIComponent(SERVER_CONFIG.name)}`;
 
-        // === 2. ДАННЫЕ О ПРИЛОЖЕНИЯХ ===
-        const APP_LINKS = {
-            android: {
-                name: "HAPP",
-                url: "https://play.google.com/store/apps/details?id=com.happproxy",
-                icon: "ph-android-logo"
-            },
-            ios: {
-                name: "HAPP", 
-                url: "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973",
-                icon: "ph-apple-logo"
-            },
-            windows: {
-                name: "Hiddify",
-                url: "https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Windows-Setup-x64.Msix",
-                icon: "ph-windows-logo"
-            },
-            macos: {
-                name: "Hiddify",
-                url: "https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg",
-                icon: "ph-app-window"
-            }
+        // === APP DATA LIST ===
+        // Note: isPrimary defines the "Big Card" behavior
+        const APP_DATA = {
+            ios: [
+                { name: "HAPP Proxy Plus", desc: "Лучший выбор для РФ", url: "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973", icon: "ph-apple-logo", isPrimary: true },
+                { name: "HAPP Global", desc: "Глобальная версия", url: "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215", icon: "ph-globe" },
+                { name: "V2RayTun", desc: "Альтернатива", url: "https://apps.apple.com/ru/app/v2raytun/id6476628951", icon: "ph-app-window" }
+            ],
+            android: [
+                { name: "HAPP Proxy", desc: "Рекомендуем (Google Play)", url: "https://play.google.com/store/apps/details?id=com.happproxy", icon: "ph-android-logo", isPrimary: true },
+                { name: "HAPP (APK)", desc: "Скачать файл напрямую", url: "https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk", icon: "ph-file-apk" },
+                { name: "V2RayTun", desc: "Альтернатива (Play)", url: "https://play.google.com/store/apps/details?id=com.v2raytun.android&hl=ru", icon: "ph-google-play-logo" }
+            ],
+            windows: [
+                { name: "V2RayTun", desc: "Рекомендуем для Windows", url: "https://storage.v2raytun.com/v2RayTun_Setup.exe", icon: "ph-windows-logo", isPrimary: true },
+                { name: "Hiddify", desc: "Универсальный клиент", url: "https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Windows-Setup-x64.Msix", icon: "ph-desktop" }
+            ],
+            macos: [
+                { name: "V2RayTun", desc: "Рекомендуем (AppStore)", url: "https://apps.apple.com/en/app/v2raytun/id6476628951", icon: "ph-app-window", isPrimary: true },
+                { name: "Hiddify (DMG)", desc: "Прямая загрузка", url: "https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg", icon: "ph-download-simple" }
+            ],
+            linux: [
+                { name: "Hiddify (AppImage)", desc: "Для всех дистрибутивов", url: "https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-Linux-x64.AppImage", icon: "ph-linux-logo", isPrimary: true }
+            ]
         };
 
-        // === 3. ЛОГИКА ПРИ ЗАГРУЗКЕ ===
+        // === INITIALIZATION ===
         document.addEventListener("DOMContentLoaded", () => {
             const userAgent = navigator.userAgent.toLowerCase();
             const card = document.getElementById('guest-connect-card');
-            const badge = document.getElementById('device-badge');
-            const dlBtn = document.getElementById('download-btn');
-            const dlText = document.getElementById('download-text');
+            
+            // 1. Detect OS
+            let detectedOS = "windows"; // Default
+            if (/android/i.test(userAgent)) detectedOS = "android";
+            else if (/iphone|ipad|ipod/i.test(userAgent)) detectedOS = "ios";
+            else if (/mac/i.test(userAgent)) detectedOS = "macos";
+            else if (/linux/i.test(userAgent)) detectedOS = "linux";
 
-            let os = "unknown";
-            if (/android/i.test(userAgent)) os = "android";
-            else if (/iphone|ipad|ipod/i.test(userAgent)) os = "ios";
-            else if (/windows/i.test(userAgent)) os = "windows";
-            else if (/mac/i.test(userAgent)) os = "macos";
+            // 2. Initial Render
+            renderApps(detectedOS);
 
-            if (APP_LINKS[os]) {
-                const app = APP_LINKS[os];
-                badge.innerHTML = `<i class="ph-fill ${app.icon} text-white"></i> <span>Устройство: ${os.charAt(0).toUpperCase() + os.slice(1)}</span>`;
-                dlBtn.href = app.url;
-                dlText.innerText = `Скачать ${app.name}`;
-                
-                if(os === 'android') badge.classList.add('bg-green-500/20', 'text-green-300', 'border-green-500/30');
-                if(os === 'ios') badge.classList.add('bg-blue-500/20', 'text-blue-300', 'border-blue-500/30');
-            } else {
-                badge.innerHTML = `<i class="ph ph-question"></i> <span>Устройство не определено</span>`;
-                dlText.innerText = "Выбрать приложение";
-                dlBtn.onclick = (e) => { e.preventDefault(); togglePlatforms(); };
-            }
-
+            // 3. Show Card Animation
             if (card) {
                 card.classList.remove('hidden');
                 setTimeout(() => {
@@ -679,7 +656,58 @@
             }
         });
 
-        // === 4. ФУНКЦИИ ===
+        // === FUNCTIONS ===
+
+        function renderApps(os) {
+            // Update Tabs UI
+            document.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`tab-${os}`).classList.add('active');
+
+            const container = document.getElementById('apps-container');
+            container.innerHTML = ''; // Clear current
+
+            const apps = APP_DATA[os] || APP_DATA['windows'];
+
+            apps.forEach((app, index) => {
+                const isPrimary = app.isPrimary;
+                
+                // Create Card HTML
+                const card = document.createElement('a');
+                card.href = app.url;
+                card.target = "_blank";
+                
+                // Styling based on primary/secondary
+                if (isPrimary) {
+                    card.className = "flex items-center gap-4 p-4 rounded-xl bg-blue-600/10 border border-blue-500/50 hover:bg-blue-600/20 transition group relative overflow-hidden col-span-1 md:col-span-2";
+                    card.innerHTML = `
+                        <div class="absolute top-0 right-0 bg-blue-600 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg text-white">РЕКОМЕНДУЕМ</div>
+                        <div class="w-12 h-12 rounded-lg bg-blue-500 text-white flex items-center justify-center text-2xl flex-shrink-0">
+                            <i class="ph-fill ${app.icon}"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-bold text-white text-lg">${app.name}</div>
+                            <div class="text-xs text-blue-200">${app.desc}</div>
+                        </div>
+                        <div class="px-4 py-2 bg-blue-600 rounded-lg text-white font-bold text-sm group-hover:bg-blue-500 transition shadow-lg">
+                            Скачать
+                        </div>
+                    `;
+                } else {
+                    card.className = "flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition group";
+                    card.innerHTML = `
+                        <div class="w-10 h-10 rounded-lg bg-white/10 text-gray-400 flex items-center justify-center text-xl flex-shrink-0 group-hover:text-white transition">
+                            <i class="ph-fill ${app.icon}"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-bold text-gray-200 text-sm truncate">${app.name}</div>
+                            <div class="text-[10px] text-gray-500 truncate">${app.desc}</div>
+                        </div>
+                        <i class="ph-bold ph-download-simple text-gray-500 group-hover:text-white"></i>
+                    `;
+                }
+                container.appendChild(card);
+            });
+        }
         
         function importKey() {
             window.location.href = vlessLink;
@@ -698,12 +726,7 @@
                         btn.classList.remove('bg-green-500');
                     }, 3000);
                 }
-                
-                if (!/iphone|ipad|ipod|android/i.test(navigator.userAgent)) {
-                     alert("Ключ скопирован! \n\n1. Откройте приложение.\n2. Нажмите 'Вставить из буфера' (Import from clipboard).\n3. Подключитесь.");
-                }
             }).catch(err => {
-                console.error(err);
                 prompt("Скопируйте ключ вручную:", vlessLink);
             });
         }
@@ -714,11 +737,6 @@
             }).catch(() => {
                 prompt("Скопируйте ключ вручную:", vlessLink);
             });
-        }
-
-        function togglePlatforms() {
-            const list = document.getElementById('all-platforms');
-            if(list) list.classList.toggle('hidden');
         }
     </script>
 </body>
