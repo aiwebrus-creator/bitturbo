@@ -580,18 +580,18 @@
         // === SERVER CONFIG ===
         const SERVER_CONFIG = {
             ip: "144.31.203.3",                              
-            port: "8080",                                  
-            uuid: "1f0b474d-da26-4f26-bbad-3114d9cb6950",    
-            pbk: "8Z6V2BCM1sfpnXJmOuXC1mBjBo3lRvBtCvPPYNjGoFU", 
-            sni: "www.bing.com",                             
-            sid: "440bef7051",                               
-            name: "Guest-Telegram-free_guest"                    
+            port: "443",                                  
+            uuid: "beabbade-3955-492f-8739-0e49d507f6fc",    
+            pbk: "lhA74yolIJ-R-F2hCGxY6GDXk1lPEMX9puP44-MSvR0", 
+            sni: "www.oracle.com",                             
+            sid: "35a95ebe9d149db6",
+            flow: "xtls-rprx-vision",
+            name: "sos BitTurboBot-guest"                    
         };
 
-        const vlessLink = `vless://${SERVER_CONFIG.uuid}@${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}?type=tcp&encryption=none&security=reality&pbk=${SERVER_CONFIG.pbk}&fp=chrome&sni=${SERVER_CONFIG.sni}&sid=${SERVER_CONFIG.sid}&spx=%2F#${encodeURIComponent(SERVER_CONFIG.name)}`;
+        const vlessLink = `vless://${SERVER_CONFIG.uuid}@${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}?type=tcp&encryption=none&security=reality&pbk=${SERVER_CONFIG.pbk}&fp=chrome&sni=${SERVER_CONFIG.sni}&sid=${SERVER_CONFIG.sid}&spx=%2F&flow=${SERVER_CONFIG.flow}#${encodeURIComponent(SERVER_CONFIG.name)}`;
 
         // === APP DATA (PRIORITY SORTED) ===
-        // Priority: Happ -> V2RayTun -> V2Box -> Streisand -> Karing
         const APP_DATA = {
             ios: [
                 { name: "Happ Proxy Plus", desc: "Лучший выбор (РФ)", url: "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973", icon: "ph-apple-logo", isPrimary: true },
@@ -634,7 +634,6 @@
             toggleSOS(true); // Start Expanded
         });
 
-        // SOS Toggle Logic
         function toggleSOS(expand) {
             const expanded = document.getElementById('sos-card-expanded');
             const collapsed = document.getElementById('sos-card-collapsed');
@@ -659,7 +658,6 @@
             document.getElementById('sos-container').scrollIntoView({behavior: 'smooth', block: 'center'});
         }
 
-        // Render Logic
         function renderApps(os) {
             document.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
             const tab = document.getElementById(`tab-${os}`);
@@ -724,7 +722,6 @@
             });
         }
 
-        // Scroll Top Logic
         const scrollBtn = document.getElementById('scrollTopBtn');
         window.onscroll = function() {
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
