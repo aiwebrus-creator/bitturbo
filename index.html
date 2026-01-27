@@ -93,7 +93,7 @@
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
                     <img src="logo.jpg" alt="Logo" class="h-14 w-14 rounded-full shadow-lg shadow-blue-500/20 ring-2 ring-white/10 object-cover">
-                    <span class="font-bold text-xl tracking-wide text-white hidden xs:inline">BitTurbo<span class="text-blue-500">Bot</span></span>
+                    <span class="font-bold text-lg sm:text-xl tracking-wide text-white">BitTurbo<span class="text-blue-500 text-glow">Bot</span></span>
                 </div>
                 
                 <nav class="hidden md:flex space-x-6 items-center">
@@ -118,8 +118,8 @@
             <button onclick="restoreSOS(); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left py-3 text-yellow-400 font-bold border-b border-white/5 mb-2">
                 <i class="ph-fill ph-warning-circle mr-2"></i> SOS Помощь (Развернуть)
             </button>
-            <a href="#features" class="block py-3 text-gray-300 border-b border-white/5">Преимущества</a>
-            <a href="#install" class="block py-3 text-gray-300 border-b border-white/5">Инструкция</a>
+            <a href="#features" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-3 text-gray-300 border-b border-white/5">Преимущества</a>
+            <a href="#install" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-3 text-gray-300 border-b border-white/5">Инструкция</a>
             <a href="https://t.me/BitTurboBot" class="block mt-4 text-center py-3 bg-blue-600 rounded-lg text-white font-bold">В Telegram Бот</a>
         </div>
     </header>
