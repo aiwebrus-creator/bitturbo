@@ -7,7 +7,7 @@
     <meta name="description" content="Официальный сайт BitTurboBot. Безопасный и быстрый интернет. VLESS + Reality.">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <script>
@@ -16,563 +16,604 @@
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brand: { dark: '#0B0F19', card: '#151B2B', accent: '#3B82F6' },
-                        step: { card: '#131722', border: '#1F2433' }
+                        brand: { 
+                            bg: '#050B14', 
+                            card: '#0F1623', 
+                            border: '#1E293B',
+                            accent: '#3B82F6' 
+                        }
                     },
-                    animation: { 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                    boxShadow: {
+                        'neon': '0 0 20px rgba(59, 130, 246, 0.15)',
+                        'glow': '0 0 40px rgba(59, 130, 246, 0.1)'
+                    }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #0B0F19; color: #E2E8F0; overflow-x: hidden; }
-        .text-glow { text-shadow: 0 0 40px rgba(59, 130, 246, 0.5); }
-        .glass-card {
-            background: rgba(21, 27, 43, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        body { background-color: #050B14; color: #E2E8F0; overflow-x: hidden; }
+        
+        /* Typography Scale */
+        .text-body { font-size: 1.125rem; line-height: 1.75rem; } /* text-lg default */
+        
+        /* Premium Card */
+        .glass-panel {
+            background: rgba(15, 22, 35, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             transition: all 0.3s ease;
         }
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.3);
+        .glass-panel:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.2);
         }
-        .gradient-text {
-            background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        /* Buttons */
+        .btn-glow {
+            position: relative;
+            background: #3B82F6;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .btn-primary {
-            background: linear-gradient(90deg, #2563EB 0%, #4F46E5 100%);
-            position: relative; overflow: hidden; z-index: 1;
+        .btn-glow:hover {
+            background: #2563EB;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-1px);
         }
-        .btn-primary::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, #4F46E5 0%, #2563EB 100%);
-            z-index: -1; transition: opacity 0.3s ease; opacity: 0;
-        }
-        .btn-primary:hover::before { opacity: 1; }
-        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        
-        /* Tabs Style */
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #050B14; }
+        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        /* SOS Tabs */
         .os-tab { transition: all 0.2s; border: 1px solid transparent; }
-        .os-tab.active { background-color: #3B82F6; color: white; border-color: #60A5FA; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
-        .os-tab:not(.active):hover { background-color: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+        .os-tab.active { 
+            background-color: #3B82F6; 
+            color: white; 
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); 
+        }
+        .os-tab:not(.active) { background: rgba(255,255,255,0.03); color: #94A3B8; }
+        .os-tab:not(.active):hover { background: rgba(255,255,255,0.08); color: white; }
 
-        /* Step Card Style */
-        .step-card {
-            background-color: #11151F; /* Darker background like in screenshot 2 */
-            border: 1px solid #232936;
-            border-radius: 1rem;
-            transition: transform 0.2s;
-        }
-        .step-card:hover { transform: translateY(-2px); border-color: #3B82F6; }
-        .step-icon-box {
-            width: 3rem; height: 3rem;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 0.75rem;
-            background-color: rgba(255,255,255,0.05);
-            color: #fbbf24; /* Amber/Yellow default */
-        }
-
-        /* Scroll Top Button */
-        #scrollTopBtn {
-            opacity: 0; pointer-events: none; transition: all 0.3s ease;
-        }
-        #scrollTopBtn.visible {
-            opacity: 1; pointer-events: auto; transform: translateY(0);
-        }
+        /* Scroll Top */
+        #scrollTopBtn { opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+        #scrollTopBtn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
     </style>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body class="antialiased flex flex-col min-h-screen text-body">
 
-    <header class="fixed w-full top-0 z-50 glass-card border-b-0 border-b-white/5">
+    <!-- Navbar -->
+    <header class="fixed w-full top-0 z-50 bg-[#050B14]/90 backdrop-blur-xl border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-3">
-                    <img src="logo.jpg" alt="Logo" class="h-14 w-14 rounded-full shadow-lg shadow-blue-500/20 ring-2 ring-white/10 object-cover">
-                    <span class="font-bold text-lg sm:text-xl tracking-wide text-white">BitTurbo<span class="text-blue-500 text-glow">Bot</span></span>
+            <div class="flex justify-between items-center h-24"> <!-- Increased height for better touch -->
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <img src="logo.jpg" alt="Logo" class="h-14 w-14 rounded-full ring-2 ring-white/10 shadow-lg object-cover">
+                    <span class="font-bold text-2xl text-white tracking-wide">BitTurbo<span class="text-blue-500">Bot</span></span>
                 </div>
                 
-                <nav class="hidden md:flex space-x-6 items-center">
-                    <button onclick="restoreSOS()" class="text-yellow-400 hover:text-yellow-300 font-bold flex items-center gap-2 transition px-3 py-1 rounded-full border border-yellow-500/20 bg-yellow-500/10 hover:bg-yellow-500/20">
-                        <i class="ph-fill ph-warning-circle"></i> SOS Помощь
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center gap-8">
+                    <button onclick="restoreSOS()" class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 font-bold hover:bg-yellow-500/20 transition">
+                        <i class="ph-fill ph-warning-circle text-xl"></i> SOS Помощь
                     </button>
-                    <a href="#features" class="text-gray-300 hover:text-white transition">Преимущества</a>
-                    <a href="#install" class="text-gray-300 hover:text-white transition">Инструкция</a>
+                    <a href="#features" class="text-slate-300 hover:text-white font-medium transition text-lg">Преимущества</a>
+                    <a href="#install" class="text-slate-300 hover:text-white font-medium transition text-lg">Инструкция</a>
                 </nav>
 
+                <!-- CTA -->
                 <div class="flex items-center gap-4">
-                    <a href="https://t.me/BitTurboBot" target="_blank" class="hidden sm:inline-flex items-center justify-center px-6 py-2 border border-transparent rounded-full text-sm font-medium text-white btn-primary shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-500/50">
-                        <i class="ph-bold ph-telegram-logo mr-2"></i> Подключить
+                    <a href="https://t.me/BitTurboBot" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-7 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-900/20">
+                        <i class="ph-bold ph-telegram-logo text-xl"></i> Подключить
                     </a>
-                    <button class="md:hidden text-gray-300 hover:text-white p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <button class="lg:hidden text-white p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                         <i class="ph ph-list text-3xl"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-[#151B2B] p-4 border-t border-white/10 absolute w-full left-0 top-20 shadow-2xl z-50">
-            <button onclick="restoreSOS(); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left py-3 text-yellow-400 font-bold border-b border-white/5 mb-2">
-                <i class="ph-fill ph-warning-circle mr-2"></i> SOS Помощь (Развернуть)
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-[#0F1623] border-t border-white/10 absolute w-full left-0 top-24 shadow-2xl z-50 p-6 flex flex-col gap-4">
+            <button onclick="restoreSOS(); document.getElementById('mobile-menu').classList.add('hidden')" class="w-full text-left py-4 px-4 bg-yellow-500/10 text-yellow-400 font-bold rounded-xl border border-yellow-500/20 flex items-center gap-3">
+                <i class="ph-fill ph-warning-circle text-2xl"></i> SOS Помощь (Открыть)
             </button>
-            <a href="#features" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-3 text-gray-300 border-b border-white/5">Преимущества</a>
-            <a href="#install" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-3 text-gray-300 border-b border-white/5">Инструкция</a>
-            <a href="https://t.me/BitTurboBot" class="block mt-4 text-center py-3 bg-blue-600 rounded-lg text-white font-bold">В Telegram Бот</a>
+            <a href="#features" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-xl text-slate-200 py-3 px-2 border-b border-white/5">Преимущества</a>
+            <a href="#install" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="text-xl text-slate-200 py-3 px-2 border-b border-white/5">Инструкция</a>
+            <a href="https://t.me/BitTurboBot" class="mt-4 w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-center text-lg">В Telegram Бот</a>
         </div>
     </header>
 
-    <section class="relative pt-28 pb-16 lg:pt-40 lg:pb-24 overflow-hidden flex-grow">
+    <!-- Hero Section -->
+    <main class="flex-grow pt-40 pb-20 relative overflow-hidden">
+        <!-- Background Accents -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
-            <div class="absolute top-20 left-1/4 w-72 md:w-96 h-72 md:h-96 bg-blue-600/20 rounded-full blur-[80px] animate-pulse-slow"></div>
-            <div class="absolute bottom-20 right-1/4 w-60 md:w-80 h-60 md:h-80 bg-purple-600/20 rounded-full blur-[80px] animate-pulse-slow" style="animation-delay: 1s;"></div>
+            <div class="absolute top-20 left-10 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-20 right-10 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px]"></div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
             
-            <div id="sos-container" class="mb-12 max-w-5xl mx-auto transition-all duration-500 ease-in-out">
-                
-                <div id="sos-card-expanded" class="hidden glass-card rounded-2xl border border-yellow-500/30 shadow-[0_0_50px_rgba(234,179,8,0.15)] relative overflow-hidden bg-[#0B0F19]/90 backdrop-blur-xl text-left transform transition-all">
-                    
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-5 md:p-6 pb-0 gap-4">
-                        <div class="flex-1">
-                            <h3 class="text-xl md:text-2xl font-black text-white flex items-center gap-2 mb-2">
-                                <i class="ph-fill ph-warning-circle text-yellow-500 animate-pulse"></i>
-                                Не работает Telegram?
-                            </h3>
-                            <p class="text-gray-300 text-sm leading-relaxed">
-                                Провайдер блокирует доступ? Используйте <span class="text-yellow-400 font-bold">бесплатный SOS-ключ</span>. 
-                                Он откроет доступ к Telegram, чтобы вы могли купить полную подписку.
-                            </p>
-                        </div>
-                        
-                        <div class="flex items-center gap-3 self-end md:self-auto">
-                            <a href="https://t.me/BitTurboBot" target="_blank" class="hidden sm:inline-flex items-center gap-2 text-xs font-bold bg-white/5 hover:bg-white/10 text-blue-400 py-2 px-3 rounded-full transition border border-white/5 whitespace-nowrap">
-                                <i class="ph-bold ph-telegram-logo"></i>
-                                Telegram работает
-                            </a>
-                            <button onclick="toggleSOS(false)" class="text-gray-500 hover:text-white transition p-2 bg-white/5 rounded-full hover:bg-white/10" title="Свернуть">
-                                <i class="ph-bold ph-minus text-lg"></i>
+            <!-- SOS Module -->
+            <div id="sos-container" class="mb-20 transition-all duration-500 ease-in-out">
+                <!-- Expanded -->
+                <div id="sos-card-expanded" class="hidden glass-panel rounded-2xl border border-yellow-500/20 shadow-[0_0_50px_rgba(234,179,8,0.1)] overflow-hidden">
+                    <div class="p-6 md:p-8 lg:p-10">
+                        <!-- Header -->
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 border-b border-white/5 pb-6">
+                            <div>
+                                <h3 class="text-2xl md:text-3xl font-black text-white flex items-center gap-3 mb-3">
+                                    <i class="ph-fill ph-warning-circle text-yellow-500 animate-pulse"></i>
+                                    Не работает Telegram?
+                                </h3>
+                                <p class="text-slate-300 text-lg">
+                                    Провайдер блокирует доступ? Используйте <span class="text-yellow-400 font-bold">бесплатный SOS-ключ</span>. 
+                                    Он откроет доступ к Telegram, чтобы вы могли купить полную подписку.
+                                </p>
+                            </div>
+                            <button onclick="toggleSOS(false)" class="flex items-center gap-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 px-5 py-2.5 rounded-lg transition font-medium">
+                                <span>Свернуть</span> <i class="ph-bold ph-caret-up"></i>
                             </button>
                         </div>
-                    </div>
 
-                    <div class="p-5 md:p-6 pt-6 space-y-6">
-                        
-                        <div>
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
-                                <div class="text-xs text-blue-400 font-black uppercase tracking-widest">Шаг 1: Приложение</div>
-                                <div class="flex gap-2 p-1 bg-black/40 rounded-lg overflow-x-auto no-scrollbar w-full sm:w-auto">
-                                    <button onclick="renderApps('ios')" id="tab-ios" class="os-tab flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
-                                        <i class="ph-bold ph-apple-logo"></i> iOS
-                                    </button>
-                                    <button onclick="renderApps('android')" id="tab-android" class="os-tab flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
-                                        <i class="ph-bold ph-android-logo"></i> Android
-                                    </button>
-                                    <button onclick="renderApps('windows')" id="tab-windows" class="os-tab flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
-                                        <i class="ph-bold ph-windows-logo"></i> Windows
-                                    </button>
-                                    <button onclick="renderApps('macos')" id="tab-macos" class="os-tab flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
-                                        <i class="ph-bold ph-app-window"></i> macOS
-                                    </button>
-                                    <button onclick="renderApps('linux')" id="tab-linux" class="os-tab flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-bold text-gray-400 flex items-center gap-2">
-                                        <i class="ph-bold ph-linux-logo"></i> Linux
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div id="apps-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
-                                </div>
-                        </div>
-
-                        <div>
-                            <div class="text-xs text-green-400 font-black uppercase tracking-widest mb-3">Шаг 2: Временный ключ</div>
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <button onclick="importKey()" class="flex-1 group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 p-4 hover:shadow-lg hover:shadow-green-500/20 transition-all text-left border border-green-500/30">
-                                    <div class="flex items-center gap-4">
-                                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-black/20 text-white flex items-center justify-center font-bold text-lg shadow-inner">2</div>
-                                        <div>
-                                            <div class="text-white font-bold text-base">Подключить</div>
-                                            <div class="text-xs text-green-100 opacity-90 font-medium">Нажмите для авто-импорта</div>
-                                        </div>
-                                        <i class="ph-bold ph-plugs-connected ml-auto text-2xl text-green-200 opacity-50 group-hover:opacity-100 transition"></i>
+                        <!-- Content Grid -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                            <!-- Left: Steps -->
+                            <div class="space-y-8">
+                                <!-- Step 1 -->
+                                <div>
+                                    <div class="text-sm text-blue-400 font-black uppercase tracking-widest mb-3">Шаг 1: Приложение</div>
+                                    <div class="flex flex-wrap gap-2.5">
+                                        <button onclick="renderApps('ios')" id="tab-ios" class="os-tab rounded-lg px-4 py-3 flex items-center gap-2 font-bold"><i class="ph-bold ph-apple-logo text-lg"></i> iOS</button>
+                                        <button onclick="renderApps('android')" id="tab-android" class="os-tab rounded-lg px-4 py-3 flex items-center gap-2 font-bold"><i class="ph-bold ph-android-logo text-lg"></i> Android</button>
+                                        <button onclick="renderApps('windows')" id="tab-windows" class="os-tab rounded-lg px-4 py-3 flex items-center gap-2 font-bold"><i class="ph-bold ph-windows-logo text-lg"></i> Win</button>
+                                        <button onclick="renderApps('macos')" id="tab-macos" class="os-tab rounded-lg px-4 py-3 flex items-center gap-2 font-bold"><i class="ph-bold ph-app-window text-lg"></i> Mac</button>
+                                        <button onclick="renderApps('linux')" id="tab-linux" class="os-tab rounded-lg px-4 py-3 flex items-center gap-2 font-bold"><i class="ph-bold ph-linux-logo text-lg"></i> Linux</button>
                                     </div>
-                                </button>
-                                <button onclick="copyKey()" class="py-4 sm:py-0 sm:w-16 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition text-gray-400 hover:text-white flex items-center justify-center" title="Скопировать ключ вручную">
-                                    <i class="ph-bold ph-copy text-xl"></i>
-                                </button>
-                            </div>
-                            <div class="text-[10px] text-gray-500 mt-2 pl-1">Если авто-подключение не сработало, скопируйте ключ и вставьте в приложение вручную.</div>
-                        </div>
+                                    <div id="apps-container" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-64 overflow-y-auto custom-scrollbar pr-2"></div>
+                                </div>
 
-                        <div class="space-y-4 pt-4">
-                            
-                            <div class="step-card p-5 flex items-start gap-4">
-                                <div class="step-icon-box text-yellow-500 bg-yellow-500/10 flex-shrink-0">
-                                    <i class="ph-fill ph-power text-2xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="text-white font-bold text-lg mb-1">Шаг 3: Включите соединение</h4>
-                                    <p class="text-gray-400 text-sm leading-relaxed">
-                                        Зайдите в приложение и активируйте соединение. <span class="text-yellow-400 font-bold">Внимание:</span> с этим ключом у вас будет работать <span class="text-white font-bold">только Telegram</span>. Это позволит вам перейти к следующему шагу.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="step-card p-5 flex flex-col sm:flex-row items-start gap-4">
-                                <div class="step-icon-box text-blue-400 bg-blue-500/10 flex-shrink-0">
-                                    <i class="ph-fill ph-paper-plane-right text-2xl"></i>
-                                </div>
-                                <div class="flex-1 w-full">
-                                    <h4 class="text-white font-bold text-lg mb-1">Шаг 4: Купите полную подписку</h4>
-                                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                                        Теперь, когда Telegram доступен, перейдите в нашего бота <a href="https://t.me/BitTurboBot" class="text-blue-400 hover:underline">@BitTurbobot</a> и оплатите полную подписку.
-                                    </p>
-                                    <a href="https://t.me/BitTurboBot" target="_blank" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-lg transition">
-                                        Оплатить в боте <i class="ph-bold ph-arrow-right"></i>
-                                    </a>
+                                <!-- Step 2 -->
+                                <div>
+                                    <div class="text-sm text-green-400 font-black uppercase tracking-widest mb-3">Шаг 2: Временный ключ</div>
+                                    <div class="flex flex-col sm:flex-row gap-4">
+                                        <button onclick="importKey()" class="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:to-emerald-500 p-5 rounded-xl flex items-center justify-between group shadow-lg shadow-green-900/20 transition-all border border-green-400/20">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-full bg-black/20 text-white flex items-center justify-center font-bold text-xl">2</div>
+                                                <div class="text-left">
+                                                    <div class="text-white font-bold text-lg">Подключить</div>
+                                                    <div class="text-green-100 text-sm opacity-90">Нажмите для авто-импорта</div>
+                                                </div>
+                                            </div>
+                                            <i class="ph-bold ph-plugs-connected text-3xl text-white/50 group-hover:text-white transition"></i>
+                                        </button>
+                                        <button onclick="copyKey()" class="p-5 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 hover:text-white transition flex items-center justify-center gap-2" title="Скопировать ключ">
+                                            <i class="ph-bold ph-copy text-2xl"></i>
+                                        </button>
+                                    </div>
+                                    <div class="text-sm text-slate-500 mt-2">Если авто-подключение не сработало, скопируйте ключ и вставьте в приложение вручную.</div>
                                 </div>
                             </div>
 
-                            <div class="step-card p-5 flex items-start gap-4">
-                                <div class="step-icon-box text-green-400 bg-green-500/10 flex-shrink-0">
-                                    <i class="ph-fill ph-magic-wand text-2xl"></i>
+                            <!-- Right: Info -->
+                            <div class="bg-[#0B101A] rounded-2xl p-6 border border-white/5 flex flex-col gap-6 justify-center">
+                                <div class="flex gap-5">
+                                    <div class="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center flex-shrink-0 text-2xl border border-yellow-500/20">
+                                        <i class="ph-fill ph-power"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-xl mb-1">Шаг 3: Включите соединение</h4>
+                                        <p class="text-slate-400">Зайдите в приложение и активируйте соединение. <span class="text-yellow-400 font-bold">Внимание:</span> с этим ключом у вас будет работать <span class="text-white font-bold">только Telegram</span>.</p>
+                                    </div>
                                 </div>
-                                <div class="flex-1">
-                                    <h4 class="text-white font-bold text-lg mb-1">Шаг 5: Активируйте полный доступ</h4>
-                                    <p class="text-gray-400 text-sm leading-relaxed">
-                                        После оплаты бот выдаст вам <span class="text-white font-bold">новый, постоянный ключ</span>. Замените им временный ключ в приложении. Весь интернет, включая YouTube и Instagram, заработает на полной скорости!
-                                    </p>
+
+                                <div class="flex gap-5">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center flex-shrink-0 text-2xl border border-blue-500/20">
+                                        <i class="ph-fill ph-shopping-cart"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-xl mb-1">Шаг 4: Купите подписку</h4>
+                                        <p class="text-slate-400 mb-4">Перейдите в бота <a href="https://t.me/BitTurboBot" class="text-blue-400 hover:underline font-bold">@BitTurbobot</a> и оплатите тариф.</p>
+                                        <a href="https://t.me/BitTurboBot" target="_blank" class="inline-flex items-center text-blue-400 font-bold hover:text-blue-300 text-lg">
+                                            Перейти в бота <i class="ph-bold ph-arrow-right ml-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-5">
+                                    <div class="w-12 h-12 rounded-xl bg-green-500/10 text-green-400 flex items-center justify-center flex-shrink-0 text-2xl border border-green-500/20">
+                                        <i class="ph-fill ph-magic-wand"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-xl mb-1">Шаг 5: Активируйте полный доступ</h4>
+                                        <p class="text-slate-400">После оплаты бот выдаст вам <span class="text-white font-bold">новый, постоянный ключ</span>. Замените им временный ключ в приложении.</p>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-                        </div>
-                </div>
-
-                <div id="sos-card-collapsed" class="hidden cursor-pointer" onclick="toggleSOS(true)">
-                    <div class="glass-card rounded-full border border-yellow-500/30 p-2 pr-6 flex items-center gap-4 bg-[#0B0F19]/90 backdrop-blur-xl hover:bg-yellow-500/5 transition max-w-md mx-auto">
-                        <div class="w-10 h-10 rounded-full bg-yellow-500/20 text-yellow-500 flex items-center justify-center animate-pulse">
-                            <i class="ph-fill ph-warning-circle text-xl"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="text-white font-bold text-sm">Не работает Telegram?</div>
-                            <div class="text-xs text-gray-400">Нажмите, чтобы развернуть SOS-помощь</div>
-                        </div>
-                        <i class="ph-bold ph-caret-down ml-auto text-gray-500"></i>
                     </div>
                 </div>
 
-            </div>
-            
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
-                <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="text-sm font-medium text-gray-300">Стабильное соединение в Европе</span>
-            </div>
-            
-            <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
-                БЕЗОПАСНЫЙ И <span class="gradient-text text-glow">ЧИСТЫЙ ИНТЕРНЕТ</span>
-            </h1>
-            
-            <p class="text-base sm:text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto px-4">
-                Для видео в 4K, удаленной работы и повседневной жизни. 
-                Современный протокол VLESS + Reality без рекламы и лагов.
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-                <a href="https://t.me/BitTurboBot" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl text-lg font-bold text-white btn-primary shadow-xl shadow-blue-500/20 hover:scale-105 transition-transform flex items-center justify-center gap-2">
-                    <i class="ph-bold ph-rocket-launch"></i> Начать бесплатно
-                </a>
-                <a href="#install" class="w-full sm:w-auto px-8 py-4 rounded-xl text-lg font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 transition flex items-center justify-center gap-2">
-                    <i class="ph-bold ph-book-open-text"></i> Инструкция
-                </a>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 border-t border-white/10 pt-10 px-4">
-                <div><div class="text-2xl md:text-3xl font-bold text-white mb-1">2.5 Гбит/с</div><div class="text-xs text-gray-500">Скорость</div></div>
-                <div><div class="text-2xl md:text-3xl font-bold text-white mb-1">0%</div><div class="text-xs text-gray-500">Логирования</div></div>
-                <div><div class="text-2xl md:text-3xl font-bold text-white mb-1">1 мин</div><div class="text-xs text-gray-500">Настройка</div></div>
-                <div><div class="text-2xl md:text-3xl font-bold text-white mb-1">4K</div><div class="text-xs text-gray-500">Видео</div></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="py-20 bg-brand-dark relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Почему выбирают <span class="text-blue-500">BitTurboBot</span></h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Мы используем передовые технологии шифрования, чтобы ваш опыт в интернете был быстрым и приватным.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6 text-blue-400">
-                        <i class="ph-fill ph-lightning text-3xl"></i>
+                <!-- Collapsed -->
+                <div id="sos-card-collapsed" class="hidden cursor-pointer group" onclick="toggleSOS(true)">
+                    <div class="max-w-2xl mx-auto glass-panel rounded-full p-2 pr-8 flex items-center gap-5 transition-transform hover:scale-[1.02]">
+                        <div class="w-14 h-14 rounded-full bg-yellow-500 text-[#050B14] flex items-center justify-center shadow-lg shadow-yellow-500/20 animate-pulse">
+                            <i class="ph-fill ph-warning-circle text-2xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-white font-bold text-lg">Не работает Telegram?</div>
+                            <div class="text-yellow-400/80 text-sm font-medium">Нажмите, чтобы развернуть SOS-помощь</div>
+                        </div>
+                        <i class="ph-bold ph-caret-down text-slate-400 group-hover:text-white text-xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Скорость без лагов</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> До 2,5 Гбит/с</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Идеально для 4K видео</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Серверы в Европе</li>
-                    </ul>
-                </div>
-
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 text-purple-400">
-                        <i class="ph-fill ph-shield-check text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Надёжная защита</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Без логов активности</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Умное шифрование</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Протокол VLESS + Reality</li>
-                    </ul>
-                </div>
-
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center mb-6 text-green-400">
-                        <i class="ph-fill ph-thumbs-up text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Комфорт использования</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Никакой рекламы</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Настройка за 1 минуту</li>
-                        <li class="flex items-center gap-2"><i class="ph-bold ph-check text-green-500"></i> Доступная цена</li>
-                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="py-12">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="relative rounded-3xl overflow-hidden p-10 text-center">
-                <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-50"></div>
-                <div class="absolute inset-0 backdrop-blur-md"></div>
+            <!-- Hero Text -->
+            <div class="text-center max-w-5xl mx-auto mt-16">
+                <div class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-green-500/10 border border-green-500/20 mb-10 backdrop-blur-md">
+                    <span class="flex h-3 w-3 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-base font-semibold text-green-400">Стабильное соединение в Европе</span>
+                </div>
                 
-                <div class="relative z-10">
-                    <div class="inline-block p-3 rounded-full bg-white/10 mb-6">
-                        <i class="ph-fill ph-gift text-4xl text-yellow-400"></i>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+                    БЕЗОПАСНЫЙ И <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]">ЧИСТЫЙ ИНТЕРНЕТ</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+                    Для видео в 4K, удаленной работы и повседневной жизни. 
+                    Современный протокол VLESS + Reality без рекламы и лагов.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center px-4">
+                    <a href="https://t.me/BitTurboBot" target="_blank" class="btn-glow text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center justify-center gap-3 shadow-xl shadow-blue-900/30">
+                        <i class="ph-bold ph-rocket-launch"></i> Начать бесплатно
+                    </a>
+                    <a href="#install" class="bg-white/5 hover:bg-white/10 text-white px-10 py-5 rounded-2xl font-bold text-xl border border-white/10 flex items-center justify-center gap-3 transition">
+                        <i class="ph-bold ph-book-open-text"></i> Инструкция
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-12 border-t border-white/10">
+                    <div>
+                        <div class="text-3xl md:text-4xl font-black text-white mb-2">2.5 Гбит/с</div>
+                        <div class="text-slate-500 font-medium uppercase tracking-wider text-sm">Скорость</div>
                     </div>
-                    <h2 class="text-3xl font-bold text-white mb-6">Бонусы за друзей</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
-                            <span class="block text-4xl font-black text-yellow-400 mb-2">+3 дня</span>
-                            <span class="text-gray-300">За регистрацию друга по ссылке</span>
-                        </div>
-                        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
-                            <span class="block text-4xl font-black text-yellow-400 mb-2">+14 дней</span>
-                            <span class="text-gray-300">За первый платёж друга</span>
-                        </div>
+                    <div>
+                        <div class="text-3xl md:text-4xl font-black text-white mb-2">0%</div>
+                        <div class="text-slate-500 font-medium uppercase tracking-wider text-sm">Логирования</div>
                     </div>
-                    <a href="https://t.me/BitTurboBot" class="mt-8 inline-block text-blue-300 hover:text-white border-b border-blue-300 hover:border-white transition pb-1">Получить реферальную ссылку в боте →</a>
+                    <div>
+                        <div class="text-3xl md:text-4xl font-black text-white mb-2">1 мин</div>
+                        <div class="text-slate-500 font-medium uppercase tracking-wider text-sm">Настройка</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl md:text-4xl font-black text-white mb-2">4K</div>
+                        <div class="text-slate-500 font-medium uppercase tracking-wider text-sm">Видео</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Features -->
+    <section id="features" class="py-24 bg-[#0B101A] border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Почему выбирают <span class="text-blue-500">BitTurboBot</span></h2>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">Мы используем передовые технологии шифрования, чтобы ваш опыт в интернете был быстрым и приватным.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 text-blue-400 border border-blue-500/20">
+                        <i class="ph-fill ph-lightning text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Скорость без лагов</h3>
+                    <ul class="space-y-4 text-slate-300 text-lg">
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> До 2,5 Гбит/с</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Идеально для 4K видео</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Серверы в Европе</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 text-purple-400 border border-purple-500/20">
+                        <i class="ph-fill ph-shield-check text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Надёжная защита</h3>
+                    <ul class="space-y-4 text-slate-300 text-lg">
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Без логов активности</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Умное шифрование</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Протокол VLESS + Reality</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 text-green-400 border border-green-500/20">
+                        <i class="ph-fill ph-thumbs-up text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Комфорт использования</h3>
+                    <ul class="space-y-4 text-slate-300 text-lg">
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Никакой рекламы</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Настройка за 1 минуту</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Доступная цена</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="security" class="py-20 bg-[#0F1420]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Bonus -->
+    <section class="py-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="relative rounded-[3rem] overflow-hidden p-10 md:p-20 text-center border border-white/10 bg-[#0F1623]">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-blue-900/30 to-transparent"></div>
+                
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="inline-block p-5 rounded-full bg-white/5 mb-8 border border-white/10">
+                        <i class="ph-fill ph-gift text-5xl text-yellow-400 drop-shadow-lg"></i>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-10">Бонусы за друзей</h2>
+                    
+                    <div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl justify-center">
+                        <div class="bg-black/30 border border-white/10 rounded-2xl p-8 backdrop-blur-sm flex-1">
+                            <span class="block text-5xl font-black text-yellow-400 mb-3">+3 дня</span>
+                            <span class="text-xl text-slate-200">За регистрацию друга по ссылке</span>
+                        </div>
+                        <div class="bg-black/30 border border-white/10 rounded-2xl p-8 backdrop-blur-sm flex-1">
+                            <span class="block text-5xl font-black text-yellow-400 mb-3">+14 дней</span>
+                            <span class="text-xl text-slate-200">За первый платёж друга</span>
+                        </div>
+                    </div>
+                    <a href="https://t.me/BitTurboBot" class="mt-12 text-xl font-medium text-blue-300 hover:text-white border-b-2 border-blue-300/30 hover:border-white transition pb-1">Получить реферальную ссылку в боте →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security -->
+    <section id="security" class="py-24 bg-[#0B101A]">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-white mb-4">Почему защита сегодня — <br class="hidden md:block">необходимость, а не опция?</h2>
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Почему защита сегодня — <br>необходимость, а не опция?</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8">
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400">
-                            <i class="ph-fill ph-lock-key text-2xl"></i>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-10">
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-slate-800/50 flex items-center justify-center text-red-400 border border-white/5">
+                            <i class="ph-fill ph-lock-key text-3xl"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Защита личных данных</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">
+                            <h4 class="text-2xl font-bold text-white mb-2">Защита личных данных</h4>
+                            <p class="text-lg text-slate-400 leading-relaxed">
                                 Мы создаём зашифрованный канал связи, защищая ваши логины, пароли и платёжные данные от перехвата злоумышленниками.
                             </p>
                         </div>
                     </div>
 
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
-                            <i class="ph-fill ph-wifi-high text-2xl"></i>
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-slate-800/50 flex items-center justify-center text-blue-400 border border-white/5">
+                            <i class="ph-fill ph-wifi-high text-3xl"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Безопасность в Wi-Fi</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">
+                            <h4 class="text-2xl font-bold text-white mb-2">Безопасность в Wi-Fi</h4>
+                            <p class="text-lg text-slate-400 leading-relaxed">
                                 Кафе, отели, аэропорты — мы защищаем соединение в открытых сетях, снижая риск утечки данных.
                             </p>
                         </div>
                     </div>
 
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
-                            <i class="ph-fill ph-globe text-2xl"></i>
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-slate-800/50 flex items-center justify-center text-purple-400 border border-white/5">
+                            <i class="ph-fill ph-globe text-3xl"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Свобода доступа</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">
+                            <h4 class="text-2xl font-bold text-white mb-2">Свобода доступа</h4>
+                            <p class="text-lg text-slate-400 leading-relaxed">
                                 Свободный и стабильный доступ к онлайн-ресурсам.
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative h-full min-h-[400px] rounded-2xl overflow-hidden glass-card flex items-center justify-center group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 group-hover:opacity-100 transition duration-500"></div>
+                <div class="relative h-[500px] rounded-[3rem] overflow-hidden glass-panel flex items-center justify-center group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10 group-hover:opacity-100 transition duration-700"></div>
                     
-                    <div class="flex flex-col items-center group-hover:scale-105 transition-transform duration-500 z-10 -translate-y-12">
-                        <div class="relative">
-                            <div class="absolute inset-0 bg-blue-500 blur-2xl opacity-20 rounded-full"></div>
-                            <img src="logo.jpg" alt="Большой логотип BitTurboBot" class="relative w-56 h-56 rounded-full shadow-2xl shadow-blue-500/30 border-4 border-white/10 object-cover">
+                    <div class="relative z-10 text-center transform transition-transform duration-500 group-hover:scale-105">
+                        <div class="relative inline-block">
+                            <div class="absolute inset-0 bg-blue-500 blur-[80px] opacity-20 rounded-full"></div>
+                            <img src="logo.jpg" alt="Logo" class="relative w-64 h-64 rounded-full shadow-2xl shadow-black/50 border-8 border-[#1E293B] object-cover">
                         </div>
-                        <span class="font-black text-3xl tracking-wide text-white drop-shadow-lg mt-6">BitTurbo<span class="text-blue-500">Bot</span></span>
-                    </div>
-
-                    <div class="absolute bottom-8 left-8 right-8">
-                        <p class="text-white font-bold text-lg">Цифровая безопасность</p>
-                        <p class="text-gray-400 text-sm">Инвестиция в ваше спокойствие</p>
+                        <div class="mt-8">
+                            <span class="font-black text-4xl text-white tracking-wide block">BitTurbo<span class="text-blue-500">Bot</span></span>
+                            <span class="text-slate-500 text-lg uppercase tracking-widest font-bold mt-2 block">Security First</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="install" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-12">Инструкция по подключению</h2>
+    <!-- Installation Steps (Grid Layout) -->
+    <section id="install" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-white mb-20">Инструкция по подключению</h2>
             
-            <div class="steps-grid">
-                <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/1.jpg" alt="Скриншот Шаг 1: Запуск бота BitTurboBot" class="w-full h-full object-cover">
+            <!-- Grid System for "Blocks Side by Side" -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Step 1 -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl hover:border-blue-500/30 transition-colors group">
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <!-- Full Image, no crop -->
+                        <img src="images/1.jpg" alt="Step 1" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">01</div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-blue-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">Шаг 1</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Запуск бота</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Перейдите в наш бот <a href="https://t.me/BitTurboBot" class="text-blue-400 hover:underline">@BitTurboBot</a> и нажмите кнопку <strong>«Старт»</strong>. Если кнопки нет — отправьте команду <code>/start</code>.</p>
-                    </div>
-                </div>
-
-                <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/2.jpg" alt="Скриншот Шаг 2: Прохождение капчи" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-blue-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">Шаг 2</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Проверка (Капча)</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Появится защита от ботов. Решите простую задачу и выберите правильный ответ — без этого бот не продолжит работу.</p>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Запуск бота</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            Перейдите в наш бот <a href="https://t.me/BitTurboBot" class="text-blue-400 hover:underline font-bold">@BitTurboBot</a> и нажмите кнопку <strong>«Старт»</strong>. Если кнопки нет — отправьте команду <code>/start</code>.
+                        </p>
                     </div>
                 </div>
 
-                <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/3.jpg" alt="Скриншот Шаг 3: Меню подключения" class="w-full h-full object-cover">
+                <!-- Step 2 -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl hover:border-blue-500/30 transition-colors group">
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <img src="images/2.jpg" alt="Step 2" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">02</div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-blue-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">Шаг 3</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Подключение</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Нажмите кнопку <strong>«Подключиться»</strong> в меню бота.</p>
-                    </div>
-                </div>
-
-                <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/4.jpg" alt="Скриншот Шаг 4: Запуск Mini App" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-blue-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">Шаг 4</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Запуск Mini App</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Если появится запрос на запуск Mini App, откройте его и выберите пункт <strong>«Установка на смартфон»</strong>.</p>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Проверка (Капча)</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            Появится защита от ботов. Решите простую задачу и выберите правильный ответ — без этого бот не продолжит работу.
+                        </p>
                     </div>
                 </div>
 
-                <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/5.jpg" alt="Скриншот Шаг 5: Выбор приложения Happ или V2RayTun" class="w-full h-full object-cover">
+                <!-- Step 3 -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl hover:border-blue-500/30 transition-colors group">
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <img src="images/3.jpg" alt="Step 3" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">03</div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-blue-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">Шаг 5</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Установка приложения</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Выберите приложение <strong>Happ</strong> или <strong>V2RayTun</strong>. Вас перенаправит в магазин приложений. Установите, запустите и дайте все разрешения. Затем вернитесь в Telegram.</p>
-                    </div>
-                </div>
-
-                <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/6.jpg" alt="Скриншот Шаг 6: Добавление подписки" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-blue-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">Шаг 6</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Добавление подписки</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Нажмите кнопку <strong>«Добавить подписку»</strong>.</p>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Подключение</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            Нажмите кнопку <strong>«Подключиться»</strong> в меню бота.
+                        </p>
                     </div>
                 </div>
 
-                <div class="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/7.jpg" alt="Скриншот Шаг 7: Автонастройка конфигурации" class="w-full h-full object-cover">
+                <!-- Step 4 -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl hover:border-blue-500/30 transition-colors group">
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <img src="images/4.jpg" alt="Step 4" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">04</div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-blue-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">Шаг 7</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Автонастройка</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Выберите <strong>автонастройку</strong> для установленного приложения (Happ или V2RayTun). Подписка добавится автоматически.</p>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Запуск Mini App</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            Если появится запрос на запуск Mini App, откройте его и выберите пункт <strong>«Установка на смартфон»</strong>.
+                        </p>
                     </div>
                 </div>
 
-                <div class="glass-card rounded-2xl overflow-hidden border border-green-500/20 flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-full relative border-b border-white/5">
-                        <img src="images/8.jpg" alt="Скриншот Шаг 8: Успешное подключение" class="w-full h-full object-cover">
+                <!-- Step 5 -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl hover:border-blue-500/30 transition-colors group">
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <img src="images/5.jpg" alt="Step 5" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">05</div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow relative">
-                        <div class="absolute top-4 right-4 text-green-500 bg-green-500/10 p-2 rounded-full">
-                            <i class="ph-bold ph-check"></i>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Установка приложения</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            Выберите приложение <strong>Happ</strong> или <strong>V2RayTun</strong>. Вас перенаправит в магазин приложений. Установите, запустите и дайте все разрешения. Затем вернитесь в Telegram.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl hover:border-blue-500/30 transition-colors group">
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <img src="images/6.jpg" alt="Step 6" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">06</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Добавление подписки</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            Нажмите кнопку <strong>«Добавить подписку»</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 7 -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl hover:border-blue-500/30 transition-colors group">
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <img src="images/7.jpg" alt="Step 7" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">07</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Автонастройка</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            Выберите <strong>автонастройку</strong> для установленного приложения (Happ или V2RayTun). Подписка добавится автоматически.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 8 (Final) -->
+                <div class="glass-panel overflow-hidden flex flex-col h-full rounded-3xl border-green-500/30 relative group">
+                    <div class="absolute inset-0 bg-green-500/5 pointer-events-none"></div>
+                    <div class="relative w-full aspect-[9/19] bg-[#020408] border-b border-white/5 p-4 flex items-center justify-center">
+                        <img src="images/8.jpg" alt="Step 8" class="h-full w-full object-contain rounded-lg shadow-lg">
+                        <div class="absolute top-4 left-4 bg-green-500 text-white font-black px-3 py-1 rounded-lg shadow-lg text-lg">08</div>
+                        <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-full p-2 text-green-400 border border-green-500/30">
+                            <i class="ph-bold ph-check text-xl"></i>
                         </div>
-                        <span class="text-green-400 font-black text-lg uppercase tracking-widest mb-3 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">Шаг 8</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Финал</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">В приложении выберите нужную локацию и нажмите <strong>кнопку подключения</strong> (круглую кнопку сверху). Если приложение не открылось автоматически — откройте его вручную на смартфоне.</p>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold text-white mb-3">Финал</h3>
+                        <p class="text-slate-300 text-base leading-relaxed flex-grow">
+                            В приложении выберите нужную локацию и нажмите <strong>кнопку подключения</strong> (круглую кнопку сверху). Если приложение не открылось автоматически — откройте его вручную на смартфоне.
+                        </p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#05080F] border-t border-white/5 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col items-center gap-8">
-                <div class="flex flex-col md:flex-row justify-between w-full items-center gap-6">
-                    <div class="flex items-center gap-3">
-                        <img src="logo.jpg" alt="Логотип BitTurboBot" class="h-12 w-12 rounded-full shadow-lg shadow-blue-500/20 ring-1 ring-white/10 object-cover">
-                        <span class="font-bold text-lg text-white">BitTurboBot</span>
-                    </div>
-                    
-                    <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-                        <a href="terms.html" class="hover:text-blue-400 transition">Пользовательское соглашение</a>
-                        <span class="text-gray-700">|</span>
-                        <a href="privacy.html" class="hover:text-blue-400 transition">Политика конфиденциальности</a>
-                    </div>
-
-                    <div class="text-gray-500 text-sm">
-                        &copy; 2026 BitTurboBot Security.
+    <!-- Footer -->
+    <footer class="bg-[#020408] border-t border-slate-800 py-16">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-10">
+                <div class="flex items-center gap-4">
+                    <img src="logo.jpg" alt="Logo" class="h-14 w-14 rounded-full opacity-80 grayscale hover:grayscale-0 transition duration-500">
+                    <div>
+                        <span class="font-bold text-xl text-white block">BitTurboBot</span>
+                        <span class="text-slate-500 text-sm">Security Systems</span>
                     </div>
                 </div>
-
-                <div class="max-w-3xl text-center space-y-4">
-                     <p class="text-xs text-gray-400 leading-relaxed opacity-90">
-                        Премиальный сервис защиты цифровой конфиденциальности. 
-                        Данный сервис предназначен для обеспечения безопасности и защиты персональных данных пользователей. 
-                        Мы работаем в соответствии с требованиями законодательства, предоставляя инструменты для шифрования трафика и защиты от киберугроз. 
-                        Используя сервис, вы соглашаетесь с политикой конфиденциальности.
-                    </p>
-                    <p class="text-xs text-gray-500 opacity-60">
-                        Сайт носит информационный характер. Сервис не предназначен для нарушения законодательства.
-                    </p>
+                
+                <div class="flex flex-wrap justify-center gap-8 text-base text-slate-400 font-medium">
+                    <a href="terms.html" class="hover:text-blue-400 transition">Пользовательское соглашение</a>
+                    <a href="privacy.html" class="hover:text-blue-400 transition">Политика конфиденциальности</a>
                 </div>
+
+                <div class="text-slate-500 text-sm">
+                    &copy; 2026 BitTurboBot Security.
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center border-t border-slate-800 pt-8 space-y-4">
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Премиальный сервис защиты цифровой конфиденциальности. 
+                    Данный сервис предназначен для обеспечения безопасности и защиты персональных данных пользователей. 
+                    Мы работаем в соответствии с требованиями законодательства, предоставляя инструменты для шифрования трафика и защиты от киберугроз. 
+                    Используя сервис, вы соглашаетесь с политикой конфиденциальности.
+                </p>
+                <p class="text-xs text-slate-700">
+                    Сайт носит информационный характер. Сервис не предназначен для нарушения законодательства.
+                </p>
             </div>
         </div>
     </footer>
 
-    <button id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 z-40 bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-full shadow-lg border border-white/10">
+    <!-- Scroll Top -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 z-40 bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-full shadow-2xl shadow-blue-900/50 border border-white/10 transition-transform hover:scale-110">
         <i class="ph-bold ph-arrow-up text-xl"></i>
     </button>
 
@@ -641,15 +682,9 @@
             if (expand) {
                 collapsed.classList.add('hidden');
                 expanded.classList.remove('hidden');
-                setTimeout(() => {
-                    expanded.classList.remove('opacity-0', 'translate-y-4');
-                }, 10);
             } else {
-                expanded.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => {
-                    expanded.classList.add('hidden');
-                    collapsed.classList.remove('hidden');
-                }, 300);
+                expanded.classList.add('hidden');
+                collapsed.classList.remove('hidden');
             }
         }
 
@@ -674,6 +709,7 @@
                 card.href = app.url;
                 card.target = "_blank";
                 
+                // Используем дизайн из index1.html для карточек
                 if (isPrimary) {
                     card.className = "flex items-center gap-3 p-3 rounded-xl bg-blue-600/10 border border-blue-500/50 hover:bg-blue-600/20 transition group relative overflow-hidden md:col-span-2";
                     card.innerHTML = `
